@@ -118,7 +118,7 @@
 				],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "iotTransformeddataYR"
+					"table": "iotdata"
 				}
 			},
 			"dependsOn": [
@@ -139,7 +139,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "0_e7b3bf2b747f4722972fa49e63f88425_1.json",
+						"fileName": "0_efb88f7f2acd49a4b79c8d52834bdaab_1.json",
 						"fileSystem": "iotdata"
 					}
 				},
