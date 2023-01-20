@@ -42,7 +42,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "iotTransformeddataYR"
+			"table": "iotdata"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
