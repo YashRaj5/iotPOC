@@ -122,6 +122,10 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": "0_efb88f7f2acd49a4b79c8d52834bdaab_1.json",
+						"folderPath": {
+							"value": "@concat(formatDateTime(utcNow(),'yyyy'),'/',formatDateTime(utcNow(),'MM'),'/',formatDateTime(utcNow(),'dd'))",
+							"type": "Expression"
+						},
 						"fileSystem": "iotdata"
 					}
 				},
