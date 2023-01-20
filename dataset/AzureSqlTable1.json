@@ -1,0 +1,49 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "messageId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "deviceid",
+				"type": "varchar"
+			},
+			{
+				"name": "temprature",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "humidity",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "EventProcessedUtcTime",
+				"type": "varchar"
+			},
+			{
+				"name": "PartitionId",
+				"type": "varchar"
+			},
+			{
+				"name": "EventEnqueuedUtcTime",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "iotTransformeddataYR"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

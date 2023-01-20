@@ -1,0 +1,93 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "iot_ds",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "select1"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          messageId as integer,",
+				"          deviceId as string,",
+				"          temperature as double,",
+				"          humidity as double,",
+				"          EventProcessedUtcTime as string,",
+				"          PartitionId as integer,",
+				"          EventEnqueuedUtcTime as string,",
+				"          IoTHub as (MessageId as string, CorrelationId as string, ConnectionDeviceId as string, ConnectionDeviceGenerationId as string, EnqueuedTime as string)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> source1",
+				"source1 select(mapColumn(",
+				"          messageId,",
+				"          deviceId,",
+				"          temperature,",
+				"          humidity,",
+				"          EventProcessedUtcTime,",
+				"          PartitionId,",
+				"          EventEnqueuedUtcTime",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 derive(EventProcessedUtcTime = left(EventProcessedUtcTime,16),",
+				"          temperature = round(temperature,3),",
+				"          humidity = round(humidity,3),",
+				"          EventEnqueuedUtcTime = left(EventEnqueuedUtcTime,16)) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          messageId as integer,",
+				"          deviceid as string,",
+				"          temprature as double,",
+				"          humidity as double,",
+				"          EventProcessedUtcTime as string,",
+				"          PartitionId as string,",
+				"          EventEnqueuedUtcTime as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          messageId,",
+				"          deviceid = deviceId,",
+				"          temprature = temperature,",
+				"          humidity,",
+				"          EventProcessedUtcTime,",
+				"          PartitionId,",
+				"          EventEnqueuedUtcTime",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}

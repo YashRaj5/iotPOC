@@ -1,0 +1,9 @@
+{
+	"name": "dfyr",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "dbcb0350-dec7-4972-b338-a8281bf05d35",
+		"tenantId": "ab52d4e5-9cc7-437a-bdda-f4239e145187"
+	}
+}
